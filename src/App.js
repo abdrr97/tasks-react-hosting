@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+
+const API_URL = 'https://tasks-laravel-api.herokuapp.com/api/tasks'
+
 const App = () => {
   const [tasks, setTasks] = useState([])
 
@@ -12,7 +15,7 @@ const App = () => {
   }, [])
 
   const getTasks = () => {
-    fetch('http://127.0.0.1:8000/api/tasks', {
+    fetch(API_URL, {
       method: 'GET',
     })
       .then((response) => response.json())
@@ -26,7 +29,7 @@ const App = () => {
 
     const options = {
       method: 'POST',
-      url: 'http://127.0.0.1:8000/api/tasks',
+      url: API_URL,
       headers: { 'Content-Type': 'application/json' },
       data: {
         title,
@@ -40,7 +43,7 @@ const App = () => {
   }
 
   const deleteTask = (id) => {
-    const options = { method: 'DELETE', url: `http://127.0.0.1:8000/api/tasks/${id}` }
+    const options = { method: 'DELETE', url: `${API_URL}/${id}` }
 
     axios.request(options).then((response) => {
       getTasks()
